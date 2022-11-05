@@ -1,0 +1,111 @@
+Global:
+  use_gpu: True
+  epoch_num: 72
+  log_smooth_window: 20
+  print_batch_step: 5
+  save_model_dir: ./output/rec/ekyc/srn_ekyc_v1.8.2
+  save_epoch_step: 3
+  # evaluation is run every 5000 iterations after the 4000th iteration
+  eval_batch_step: [0, 30000]
+  cal_metric_during_train: True
+  pretrained_model: # ./output/rec/ekyc/srn_ekyc_v1.7.6/best_accuracy
+  checkpoints: ./output/rec/ekyc/srn_ekyc_v1.8.1/best_accuracy
+  save_inference_dir:
+  use_visualdl: True
+  visualdl_file_name: vdlrecords
+  infer_img: /home/vietnhh/FTech.ai/data/data_ocr/private/printed_typical/printed_scanned_undefinedsubject_vi_typical_132_text_box_1.jpg
+  # for data or label process
+  character_dict_path: ppocr/utils/dict/vietnamese_dict.txt
+  character_type: korean
+  max_text_length: 128
+  num_heads: 8
+  infer_mode: False
+  use_space_char: True
+  save_res_path: ./output/rec/predicts_srn.txt
+
+Optimizer:
+  name: Adam
+  beta1: 0.9
+  beta2: 0.999
+  clip_norm: 10.0
+  lr:
+    learning_rate: 0.0001
+    name: Cosine
+
+Architecture:
+  model_type: rec
+  algorithm: SRN
+  in_channels: 1
+  Transform:
+  Backbone:
+    name: ResNetFPN
+  Head:
+    name: SRNHead
+    max_text_length: 128
+    num_heads: 8
+    num_encoder_TUs: 2
+    num_decoder_TUs: 4
+    hidden_dims: 512
+
+Loss:
+  name: SRNLoss
+
+PostProcess:
+  name: SRNLabelDecode
+
+Metric:
+  name: RecMetric
+  main_indicator: acc
+
+Train:
+  dataset:
+    name: LMDBDataSet
+    data_dir: /home/sonnda/data/ekyc/train_lmdb_v1.8.0
+    transforms:
+      - DecodeImage: # load image
+          img_mode: BGR
+          channel_first: False
+      - SRNLabelEncode: # Class handling label
+      - SRNRecResizeImg:
+          image_shape: [1, 32, 512]
+      - KeepKeys:
+          keep_keys: ['image',
+                      'label',
+                      'length',
+                      'encoder_word_pos',
+                      'gsrm_word_pos',
+                      'gsrm_slf_attn_bias1',
+                      'gsrm_slf_attn_bias2'] # dataloader will return list in this order
+  loader:
+    shuffle: True
+    batch_size_per_card: 52
+    drop_last: False
+    num_workers: 6
+    use_shared_memory: True
+
+Eval:
+  dataset:
+    name: SimpleDataSet
+    data_dir: /home/sonnda/data/ekyc/private_test_new_3/instance_images
+    label_file_list: [ "/home/sonnda/data/ekyc/private_test_new_3/instance_images/test.txt" ]
+    transforms:
+      - DecodeImage: # load image
+          img_mode: BGR
+          channel_first: False
+      - SRNLabelEncode: # Class handling label
+      - SRNRecResizeImg:
+          image_shape: [1, 32, 512]
+      - KeepKeys:
+          keep_keys: ['image',
+                      'label',
+                      'length',
+                      'encoder_word_pos',
+                      'gsrm_word_pos',
+                      'gsrm_slf_attn_bias1',
+                      'gsrm_slf_attn_bias2']
+  loader:
+    shuffle: True
+    drop_last: False
+    batch_size_per_card: 52
+    num_workers: 6
+    use_shared_memory: True

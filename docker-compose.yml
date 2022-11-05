@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  upload_axiom:
+    image: paddleocr:latest
+    container_name: upload_axiom
+    env_file:
+      - .env
+
+  test_package:
+    image: paddleocr:latest
+    container_name: test_package
+    command: bash -c "python3 -m venv venv && 
+                      source venv/bin/activate && 
+                      pip3 install --upgrade pip &&
+                      pip3 install dist/$$(ls dist) &&
+                      cd tests/ && pytest -x"
