@@ -3,7 +3,7 @@ Global:
   epoch_num: 240
   log_smooth_window: 20
   print_batch_step: 20
-  save_model_dir: ./augmentation
+  save_model_dir: ./tests
   save_epoch_step: 120
   # evaluation is run every 2000 iterations after the 3000th iteration
   eval_batch_step: [20, 4000]
@@ -11,8 +11,8 @@ Global:
   pretrained_model: ./pretrained/ResNet18_vd_pretrained
   checkpoints: 
   save_inference_dir:
-  use_visualdl: True
-  visualdl_file_name: vdlrecords
+  use_visualdl: False
+  visualdl_file_name: 
   infer_img: /home/nhhviet/ftech.ai/data/ekyc/private_test/images/Task 2/
   save_res_path: ./output/det_db/predicts_db.txt
 
