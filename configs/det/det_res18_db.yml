@@ -2,14 +2,14 @@ Global:
   use_gpu: true
   epoch_num: 240
   log_smooth_window: 20
-  print_batch_step: 2
-  save_model_dir: ./output/det/db_r18_v2.7.4
+  print_batch_step: 20
+  save_model_dir: /content/gdrive/MyDrive/AI.VuDN/save_model/db_r18_v2.6.2
   save_epoch_step: 120
   # evaluation is run every 2000 iterations after the 3000th iteration
   eval_batch_step: [20, 4000]
   cal_metric_during_train: False
-  pretrained_model: ./output/det/db_r18_v2.2.0/best_accuracy
-  checkpoints: # ./output/det/db_r18_v2.2.0/best_accuracy
+  pretrained_model: /content/gdrive/MyDrive/AI.VuDN/save_model/pretrained_model/db_r18_v2.5.3/best_accuracy
+  checkpoints: 
   save_inference_dir:
   use_visualdl: True
   visualdl_file_name: vdlrecords
@@ -45,7 +45,7 @@ Optimizer:
   beta2: 0.999
   lr:
     name: Cosine
-    learning_rate: 0.001
+    learning_rate: 0.0001
     warmup_epoch: 2
   regularizer:
     name: 'L2'
@@ -67,9 +67,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: /mnt/datadrive/sonnda/data/ekyc/paddle_det_v2.7.3
+    data_dir: /content/dataset_v2.6.3/
     label_file_list:
-      - /mnt/datadrive/sonnda/data/ekyc/paddle_det_v2.7.3/train.txt
+      - /content/dataset_v2.6.3/train.txt
     ratio_list: [1.0]
     transforms:
       - DecodeImage: # load image
@@ -106,15 +106,15 @@ Train:
   loader:
     shuffle: True
     drop_last: False
-    batch_size_per_card: 12
-    num_workers: 6
+    batch_size_per_card: 8
+    num_workers: 4
 
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: /mnt/datadrive/sonnda/data/ekyc/private_test_new_3
+    data_dir: /content/private-test-new-3/
     label_file_list:
-      - /mnt/datadrive/sonnda/data/ekyc/private_test_new_3/annotations.txt
+      - /content/private-test-new-3/annotations.txt
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -134,4 +134,4 @@ Eval:
     shuffle: False
     drop_last: False
     batch_size_per_card: 1 # must be 1
-    num_workers: 6
+    num_workers: 4

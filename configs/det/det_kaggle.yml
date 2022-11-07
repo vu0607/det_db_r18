@@ -1,20 +1,20 @@
 Global:
   use_gpu: true
-  epoch_num: 1200
+  epoch_num: 240
   log_smooth_window: 20
   print_batch_step: 20
-  save_model_dir: /content/gdrive/MyDrive/AI.VuDN/eval_v2.6.0/result
-  save_epoch_step: 1200
+  save_model_dir: ./augmentation
+  save_epoch_step: 120
   # evaluation is run every 2000 iterations after the 3000th iteration
-  eval_batch_step: [20, 2000]
+  eval_batch_step: [20, 4000]
   cal_metric_during_train: False
-  pretrained_model:
-  checkpoints: /content/gdrive/MyDrive/AI.VuDN/save_model/db_r18_v2.6.0_2/best_accuracy
-  save_inference_dir: /content/gdrive/MyDrive/AI.VuDN/eval_v2.6.0/result
+  pretrained_model: ./pretrained/ResNet18_vd_pretrained
+  checkpoints: 
+  save_inference_dir:
   use_visualdl: True
   visualdl_file_name: vdlrecords
-  infer_img: /home/nhhviet/ftech.ai/data/ekyc/private_test_v2/images/ROI_front_1009246.jpg
-  save_res_path: /content/gdrive/MyDrive/AI.VuDN/eval_v2.6.0/result
+  infer_img: /home/nhhviet/ftech.ai/data/ekyc/private_test/images/Task 2/
+  save_res_path: ./output/det_db/predicts_db.txt
 
 Architecture:
   model_type: det
@@ -45,7 +45,7 @@ Optimizer:
   beta2: 0.999
   lr:
     name: Cosine
-    learning_rate: 0.001
+    learning_rate: 0.0001
     warmup_epoch: 2
   regularizer:
     name: 'L2'
@@ -53,24 +53,23 @@ Optimizer:
 
 PostProcess:
   name: DBPostProcess
-  thresh: 0.8
+  thresh: 0.80
   box_thresh: 0.85
   max_candidates: 1000
-  unclip_ratio: 3
+  unclip_ratio: 2.5
   use_dilation: True
   score_mode: slow
 
 Metric:
-  name: DetMetricEvaluation
-  main_indicator: hmean
-  iou_values: [0.5, 0.55,  0.6, 0.65, 0.7, 0.75, 0.8]
+  name: DetMetric
+  main_indicator: recall
 
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: /content/dataset_v2.6.1/
+    data_dir: ../../input/dataset-v261/dataset_v2.6.1/
     label_file_list:
-      - /content/dataset_v2.6.1/train.txt
+      - ../../input/dataset-v261/dataset_v2.6.1/train.txt
     ratio_list: [1.0]
     transforms:
       - DecodeImage: # load image
@@ -79,19 +78,22 @@ Train:
       - DetLabelEncode: # Class handling label
       - IaaAugment:
           augmenter_args:
-            - { 'type': Fliplr, 'args': { 'p': 0.5 } }
+            - { 'type': Fliplr, 'args': { 'p': 0.25 } }
             - { 'type': Affine, 'args': { 'rotate': [-10, 10] } }
-            - { 'type': Resize, 'args': { 'size': [0.5, 3] } }
+            - { 'type': Resize, 'args': { 'size': [0.8, 1.5] } }
+            - { 'type': MotionBlur, 'args': { 'k': [5, 11], 'angle': [0, 360] } }
+            - { 'type': GaussianBlur, 'args': { 'sigma': [0.5, 2.5] } }
+            - { 'type': GammaContrast, 'args': { 'gamma': [0.5, 2.5] , 'per_channel': True } }
       - EastRandomCropData:
           size: [960, 960]
           max_tries: 50
           keep_ratio: true
       - MakeBorderMap:
-          shrink_ratio: 0.4
+          shrink_ratio: 0.34
           thresh_min: 0.3
           thresh_max: 0.7
       - MakeShrinkMap:
-          shrink_ratio: 0.4
+          shrink_ratio: 0.34
           min_text_size: 8
       - NormalizeImage:
           scale: 1./255.
@@ -104,15 +106,15 @@ Train:
   loader:
     shuffle: True
     drop_last: False
-    batch_size_per_card: 1
-    num_workers: 1
+    batch_size_per_card: 8
+    num_workers: 4
 
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: /content/dataset_v2.6.1/
+    data_dir: ../../input/private-test-new-3/private_test_new_3/
     label_file_list:
-      - /content/dataset_v2.6.1/annotations.txt
+      - ../../input/private-test-new-3/private_test_new_3/annotations.txt
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
@@ -127,9 +129,9 @@ Eval:
           order: 'hwc'
       - ToCHWImage:
       - KeepKeys:
-          keep_keys: ['image', 'shape', 'polys', 'ignore_tags', 'texts', 'kie_classes']
+          keep_keys: ['image', 'shape', 'polys', 'ignore_tags']
   loader:
     shuffle: False
     drop_last: False
     batch_size_per_card: 1 # must be 1
-    num_workers: 1
+    num_workers: 4
