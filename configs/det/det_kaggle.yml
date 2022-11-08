@@ -8,7 +8,7 @@ Global:
   # evaluation is run every 2000 iterations after the 3000th iteration
   eval_batch_step: [20, 4000]
   cal_metric_during_train: False
-  pretrained_model: ./pretrained/ResNet18_vd_pretrained
+  pretrained_model: ./pretrain_models/ResNet18_vd_pretrained
   checkpoints: 
   save_inference_dir:
   use_visualdl: False
