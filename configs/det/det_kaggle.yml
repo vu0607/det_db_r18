@@ -67,9 +67,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: ../../input/dataset-v264/dataset_v2.6.4/
+    data_dir: ../../input/dataset-v265/dataset_v2.6.5/
     label_file_list:
-      - ../../input/dataset-v264/dataset_v2.6.4/train.txt
+      - ../../input/dataset-v265/dataset_v2.6.5/train.txt
     ratio_list: [1.0]
     transforms:
       - DecodeImage: # load image
