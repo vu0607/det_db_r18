@@ -8,8 +8,8 @@ Global:
   # evaluation is run every 2000 iterations after the 3000th iteration
   eval_batch_step: [20, 4000]
   cal_metric_during_train: False
-  pretrained_model: 
-  checkpoints: ../../input/det-db-r18-v262-1/det_db_r18_v2.6.2_1/latest
+  pretrained_model: ./pretrain_models/ResNet18_vd_pretrained
+  checkpoints: 
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
@@ -67,9 +67,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: ../../input/dataset-v263/dataset_v2.6.3/
+    data_dir: ../../input/dataset-v264/dataset_v2.6.4/
     label_file_list:
-      - ../../input/dataset-v263/dataset_v2.6.3/train.txt
+      - ../../input/dataset-v264/dataset_v2.6.4/train.txt
     ratio_list: [1.0]
     transforms:
       - DecodeImage: # load image
