@@ -8,8 +8,8 @@ Global:
   # evaluation is run every 2000 iterations after the 3000th iteration
   eval_batch_step: [20, 4000]
   cal_metric_during_train: False
-  pretrained_model: ./pretrain_models/ResNet18_vd_pretrained
-  checkpoints: 
+  pretrained_model: 
+  checkpoints: ../../input/det-db-r18-v262-1/det_db_r18_v2.6.2_1/latest
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
@@ -45,8 +45,8 @@ Optimizer:
   beta2: 0.999
   lr:
     name: Cosine
-    learning_rate: 0.001
-    warmup_epoch: 2
+    learning_rate: 0.0001
+    warmup_epoch: 0
   regularizer:
     name: 'L2'
     factor: 0
@@ -107,7 +107,7 @@ Train:
     shuffle: True
     drop_last: False
     batch_size_per_card: 12
-    num_workers: 4
+    num_workers: 6
 
 Eval:
   dataset:
@@ -134,4 +134,4 @@ Eval:
     shuffle: False
     drop_last: False
     batch_size_per_card: 1 # must be 1
-    num_workers: 4
+    num_workers: 6
