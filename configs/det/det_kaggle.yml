@@ -6,7 +6,7 @@ Global:
   save_model_dir: ./tests
   save_epoch_step: 120
   # evaluation is run every 2000 iterations after the 3000th iteration
-  eval_batch_step: [20, 4000]
+  eval_batch_step: [20, 2000]
   cal_metric_during_train: False
   pretrained_model: ../../input/det-r18-v253/db_r18_v2.5.3/best_accuracy
   checkpoints: 
