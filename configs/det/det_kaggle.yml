@@ -5,11 +5,11 @@ Global:
   print_batch_step: 20
   save_model_dir: ./tests
   save_epoch_step: 120
-  # evaluation is run every 2000 iterations after the 3000th iteration
-  eval_batch_step: [20, 2000]
+  # evaluation is run every 4000 iterations after the 3000th iteration
+  eval_batch_step: [20, 4000]
   cal_metric_during_train: False
   pretrained_model: 
-  checkpoints: ../../input/v264-1-best/v2.6.4_1_best/latest
+  checkpoints: ../../input/v264-1-pre/v2.6.4_1_pre/best_accuracy
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
@@ -45,7 +45,7 @@ Optimizer:
   beta2: 0.999
   lr:
     name: Cosine
-    learning_rate: 0.0001
+    learning_rate: 0.001
     warmup_epoch: 2
   regularizer:
     name: 'L2'
