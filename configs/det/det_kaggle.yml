@@ -9,7 +9,7 @@ Global:
   eval_batch_step: [20, 2000]
   cal_metric_during_train: False
   pretrained_model: 
-  checkpoints: ../../input/v264-1-best/v2.6.4_1_best/latest
+  checkpoints: ../../input/det-r18-v253/db_r18_v2.5.3/best_accuracy
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
@@ -56,7 +56,7 @@ PostProcess:
   thresh: 0.80
   box_thresh: 0.85
   max_candidates: 1000
-  unclip_ratio: 2.5
+  unclip_ratio: 3
   use_dilation: True
   score_mode: slow
 
