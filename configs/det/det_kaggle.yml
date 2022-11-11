@@ -9,7 +9,7 @@ Global:
   eval_batch_step: [20, 2000]
   cal_metric_during_train: False
   pretrained_model: 
-  checkpoints: ../input/v264-1-best/v2.6.4_1_best/latest
+  checkpoints: ../../input/v264-1-best/v2.6.4_1_best/latest
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
