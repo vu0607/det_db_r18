@@ -1,15 +1,15 @@
 Global:
   use_gpu: true
-  epoch_num: 64
+  epoch_num: 100
   log_smooth_window: 20
   print_batch_step: 20
   save_model_dir: ./tests
   save_epoch_step: 120
   # evaluation is run every 2000 iterations after the 3000th iteration
-  eval_batch_step: [20, 4000]
+  eval_batch_step: [20, 2000]
   cal_metric_during_train: False
-  pretrained_model: ./pretrain_models/ResNet18_vd_pretrained
-  checkpoints: 
+  pretrained_model: 
+  checkpoints: ../../input/v264-best-ratio3/v2.6.4_best_ratio3/latest
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
@@ -45,7 +45,7 @@ Optimizer:
   beta2: 0.999
   lr:
     name: Cosine
-    learning_rate: 0.001
+    learning_rate: 0.0001
     warmup_epoch: 2
   regularizer:
     name: 'L2'
@@ -56,7 +56,7 @@ PostProcess:
   thresh: 0.80
   box_thresh: 0.85
   max_candidates: 1000
-  unclip_ratio: 2.5
+  unclip_ratio: 3
   use_dilation: True
   score_mode: slow
 
@@ -67,9 +67,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: ../../input/dataset-v290/dataset_v2.9.0/
+    data_dir: ../../input/dataset-v265/dataset_v2.6.5/
     label_file_list:
-      - ../../input/dataset-v290/dataset_v2.9.0/train.txt
+      - ../../input/dataset-v265/dataset_v2.6.5/train.txt
     ratio_list: [1.0]
     transforms:
       - DecodeImage: # load image
@@ -112,9 +112,9 @@ Train:
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: ../../input/private-test-ekyc-v120/private_test_ekyc_v1.2.0/
+    data_dir: ../../input/private-test-new-3/private_test_new_3/
     label_file_list:
-      - ../../input/private-test-ekyc-v120/private_test_ekyc_v1.2.0/annotations.txt
+      - ../../input/private-test-new-3/private_test_new_3/annotations.txt
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
