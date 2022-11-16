@@ -1,6 +1,6 @@
 Global:
   use_gpu: true
-  epoch_num: 100
+  epoch_num: 32
   log_smooth_window: 20
   print_batch_step: 20
   save_model_dir: ./tests
@@ -8,8 +8,8 @@ Global:
   # evaluation is run every 2000 iterations after the 3000th iteration
   eval_batch_step: [20, 2000]
   cal_metric_during_train: False
-  pretrained_model: 
-  checkpoints: ../../input/v264-best-ratio3/v2.6.4_best_ratio3/latest
+  pretrained_model: ./pretrain_models/ResNet18_vd_pretrained
+  checkpoints: 
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
@@ -45,7 +45,7 @@ Optimizer:
   beta2: 0.999
   lr:
     name: Cosine
-    learning_rate: 0.0001
+    learning_rate: 0.001
     warmup_epoch: 2
   regularizer:
     name: 'L2'
