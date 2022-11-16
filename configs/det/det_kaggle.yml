@@ -8,8 +8,8 @@ Global:
   # evaluation is run every 2000 iterations after the 3000th iteration
   eval_batch_step: [20, 2000]
   cal_metric_during_train: False
-  pretrained_model: ../../input/v264-2-pre/v2.6.4_2_pre/latest
-  checkpoints: 
+  pretrained_model: 
+  checkpoints: ../../input/v264-best-ratio3/v2.6.4_best_ratio3/latest
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
@@ -56,7 +56,7 @@ PostProcess:
   thresh: 0.80
   box_thresh: 0.85
   max_candidates: 1000
-  unclip_ratio: 2.5
+  unclip_ratio: 3
   use_dilation: True
   score_mode: slow
 
