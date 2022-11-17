@@ -1,6 +1,6 @@
 Global:
   use_gpu: true
-  epoch_num: 32
+  epoch_num: 64
   log_smooth_window: 20
   print_batch_step: 20
   save_model_dir: ./tests
@@ -9,7 +9,7 @@ Global:
   eval_batch_step: [20, 4000]
   cal_metric_during_train: False
   pretrained_model: 
-  checkpoints: ../../input/v290-2-pre/v2.9.0_2_pre/latest
+  checkpoints: ../../input/v290-3-pre/v2.9.0_3_pre/latest
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
@@ -56,7 +56,7 @@ PostProcess:
   thresh: 0.80
   box_thresh: 0.85
   max_candidates: 1000
-  unclip_ratio: 3
+  unclip_ratio: 2.5
   use_dilation: True
   score_mode: slow
 
