@@ -56,7 +56,7 @@ PostProcess:
   thresh: 0.80
   box_thresh: 0.85
   max_candidates: 1000
-  unclip_ratio: 2.5
+  unclip_ratio: 3.0
   use_dilation: True
   score_mode: slow
 
