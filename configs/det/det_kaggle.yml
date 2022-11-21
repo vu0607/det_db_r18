@@ -67,9 +67,9 @@ Metric:
 Train:
   dataset:
     name: SimpleDataSet
-    data_dir: ../../input/dataset-v290/dataset_v2.9.0/
+    data_dir: ../../input/dataset-v252/paddle_det_v2.5.2/
     label_file_list:
-      - ../../input/dataset-v290/dataset_v2.9.0/train.txt
+      - ../../input/dataset-v252/paddle_det_v2.5.2/train.txt
     ratio_list: [1.0]
     transforms:
       - DecodeImage: # load image
@@ -112,9 +112,9 @@ Train:
 Eval:
   dataset:
     name: SimpleDataSet
-    data_dir: ../../input/private-test-ekyc-v120/private_test_ekyc_v1.2.0/
+    data_dir: ../../input/private-test-new-3/private_test_new_3/
     label_file_list:
-      - ../../input/private-test-ekyc-v120/private_test_ekyc_v1.2.0/annotations.txt
+      - ../../input/private-test-new-3/private_test_new_3/annotations.txt
     transforms:
       - DecodeImage: # load image
           img_mode: BGR
