@@ -8,8 +8,8 @@ Global:
   # evaluation is run every 2000 iterations after the 3000th iteration
   eval_batch_step: [20, 2000]
   cal_metric_during_train: False
-  pretrained_model: ../../input/db-r18-v253/db_r18_v2.5.3/best_accuracy
-  checkpoints: 
+  pretrained_model: 
+  checkpoints: ../../input/v254-best/v2.5.4/latest
   save_inference_dir:
   use_visualdl: False
   visualdl_file_name: 
